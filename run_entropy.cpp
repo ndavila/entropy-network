@@ -993,7 +993,6 @@ int main( int argc, char * argv[] ) {
       );
     }
 
-std::cout << "Now update: " << std::endl;
     zone.updateProperty(
       nnt::s_T9,
       my_user::t9_function(
