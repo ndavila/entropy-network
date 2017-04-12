@@ -167,7 +167,46 @@ acceleration(
   const double time
 )
 {
-   exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] )
+  x[2] =
+     GSL_POW_3( x[0] ) *
+     (
+       (4. * x[1]*
+         (
+           (
+             (
+               boost::any_cast<double>( S_RHO_1 ) /
+               boost::any_cast<double>( nnt::s_TAU )
+             )
+             *
+             exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] )
+           )
+           +
+           (
+             2. * boost::any_cast<double>( S_RHO_2 ) /
+             boost::any_cast<double>( S_DELTA_TRAJ ) 
+           )
+         )
+       )
+       -
+       ( x[0] *
+         (
+           ( boost::any_cast<double>( S_RHO_1 ) /
+             GSL_POW_2( boost::any_cast<double>( nnt::s_TAU )
+           )
+           *
+           (
+             exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] )
+           )
+           +
+           (
+             6. * boost::any_cast<double>( S_RHO_2 ) /
+             GSL_POW_2(boost::any_cast<double>( S_DELTA_TRAJ )
+           )
+         )
+       )
+     )
+     /
+     ( 3. * boost::any_cast<double>( nnt::s_RHO_0 ) );
    
   return
     x[1] / ( 3. * boost::any_cast<double>( param_map[nnt::s_TAU] ) );
