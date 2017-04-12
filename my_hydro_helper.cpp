@@ -61,9 +61,17 @@ get_user_defined_descriptions( po::options_description& user )
       ( nnt::s_RHO_0, po::value<double>()->default_value( 1.e8, "1.e8" ),
         "Initial density (g/cc)"
       )
+      
+      ( S_RHO_1, po::value<double>()->default_value( 9.e7, "9.e7" ),
+        "rho_1 density (g/cc)"
+      )
 
       ( nnt::s_TAU, po::value<double>()->default_value( 0.1, "0.1" ),
         "Expansion timescale (s)"
+      )
+      
+      ( S_DELTA_TRAJ, po::value<double>()->default_value( 0.1, "0.1" ),
+        "Cutoff time (s)"
       )
 
       ( S_ROOT_FACTOR, po::value<double>()->default_value( 1.001, "1.001" ),
@@ -97,8 +105,23 @@ set_user_defined_options( po::variables_map& vmap, param_map_t& param_map )
 
   param_map[nnt::s_T9_0] = vmap[nnt::s_T9_0].as<double>();
   param_map[nnt::s_RHO_0] = vmap[nnt::s_RHO_0].as<double>();
+  param_map[S_RHO_1] = vmap[S_RHO_1].as<double>();
   param_map[nnt::s_TAU] = vmap[nnt::s_TAU].as<double>();
+  param_map[S_DELTA_TRAJ] = vmap[S_DELTA_TRAJ].as<double>();
   param_map[S_ROOT_FACTOR] = vmap[S_ROOT_FACTOR].as<double>();
+  
+  if(
+    boost::any_cast<double>( param_map[S_RHO_1] ) >
+    boost::any_cast<double>( param_map[nnt::s_RHO_0] )
+  )
+  {
+    std::cerr << "rho_1 must be less than rho_0." << std::endl;
+    exit( EXIT_FAILURE );
+  }
+  
+  param_map[S_RHO_2] =
+    boost::any_cast<double>( param_map[nnt::s_RHO_0] ) -
+    boost::any_cast<double>( param_map[S_RHO_1] );
  
 }
 
