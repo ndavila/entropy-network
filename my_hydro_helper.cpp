@@ -167,7 +167,8 @@ acceleration(
   const double time
 )
 {
-
+   exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] )
+   
   return
     x[1] / ( 3. * boost::any_cast<double>( param_map[nnt::s_TAU] ) );
 
