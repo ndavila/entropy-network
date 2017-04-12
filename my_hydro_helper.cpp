@@ -141,13 +141,13 @@ initialize_state(
      GSL_POW_4( x[0] ) *
      (
        (
-         boost::any_cast<double>( S_RHO_1 ) /
+         boost::any_cast<double>( param_map[S_RHO_1] ) /
          boost::any_cast<double>( nnt::s_TAU )
        )
        +
        (
-         2. * boost::any_cast<double>( S_RHO_2 ) /
-         boost::any_cast<double>( S_DELTA_TRAJ )
+         2. * boost::any_cast<double>( param_map[S_RHO_2] ) /
+         boost::any_cast<double>( param_map[S_DELTA_TRAJ] )
        )
      )
      /
@@ -174,7 +174,7 @@ acceleration(
          (
            (
              (
-               boost::any_cast<double>( S_RHO_1 ) /
+               boost::any_cast<double>( param_map[S_RHO_1] ) /
                boost::any_cast<double>( nnt::s_TAU )
              )
              *
@@ -182,15 +182,15 @@ acceleration(
            )
            +
            (
-             2. * boost::any_cast<double>( S_RHO_2 ) /
-             boost::any_cast<double>( S_DELTA_TRAJ ) 
+             2. * boost::any_cast<double>( param_map[S_RHO_2] ) /
+             boost::any_cast<double>( param_map[S_DELTA_TRAJ] ) 
            )
          )
        )
        -
        ( x[0] *
          (
-           ( boost::any_cast<double>( S_RHO_1 ) /
+           ( boost::any_cast<double>( param_map[S_RHO_1] ) /
              GSL_POW_2( boost::any_cast<double>( nnt::s_TAU )
            )
            *
@@ -199,8 +199,8 @@ acceleration(
            )
            +
            (
-             6. * boost::any_cast<double>( S_RHO_2 ) /
-             GSL_POW_2(boost::any_cast<double>( S_DELTA_TRAJ )
+             6. * boost::any_cast<double>( param_map[S_RHO_2] ) /
+             GSL_POW_2(boost::any_cast<double>( param_map[S_DELTA_TRAJ] )
            )
          )
        )
