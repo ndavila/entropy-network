@@ -40,6 +40,9 @@
 #include "user/evolve.h"
 #include "user/hydro_helper.h"
 
+#define S_DELTA_TRAJ    "delta"
+#define S_RHO_1         "rho_1"
+#define S_RHO_2         "rho_2"
 #define S_ROOT_FACTOR   "root_factor"
 
 namespace po = boost::program_options;

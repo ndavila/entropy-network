@@ -138,11 +138,11 @@ initialize_state(
 
   x[0] = 1.;
   x[1] = 
-     GSL_POW_4( x[0] ) *
+     gsl_pow_4( x[0] ) *
      (
        (
          boost::any_cast<double>( param_map[S_RHO_1] ) /
-         boost::any_cast<double>( nnt::s_TAU )
+         boost::any_cast<double>( param_map[nnt::s_TAU] )
        )
        +
        (
@@ -151,7 +151,7 @@ initialize_state(
        )
      )
      /
-     ( 3. * boost::any_cast<double>( nnt::s_RHO_0 ) );
+     ( 3. * boost::any_cast<double>( param_map[nnt::s_RHO_0] ) );
 
 }
 
@@ -167,18 +167,19 @@ acceleration(
   const double time
 )
 {
-  x[2] =
-     GSL_POW_3( x[0] ) *
+
+  return
+     gsl_pow_3( x[0] ) *
      (
        (4. * x[1]*
          (
            (
              (
                boost::any_cast<double>( param_map[S_RHO_1] ) /
-               boost::any_cast<double>( nnt::s_TAU )
+               boost::any_cast<double>( param_map[nnt::s_TAU] )
              )
              *
-             exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] )
+             exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] ) )
            )
            +
            (
@@ -191,26 +192,23 @@ acceleration(
        ( x[0] *
          (
            ( boost::any_cast<double>( param_map[S_RHO_1] ) /
-             GSL_POW_2( boost::any_cast<double>( nnt::s_TAU )
+             gsl_pow_2( boost::any_cast<double>( param_map[nnt::s_TAU] ) )
            )
            *
            (
-             exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] )
+             exp( -time / boost::any_cast<double>( param_map[nnt::s_TAU] ) )
            )
            +
            (
              6. * boost::any_cast<double>( param_map[S_RHO_2] ) /
-             GSL_POW_2(boost::any_cast<double>( param_map[S_DELTA_TRAJ] )
+             gsl_pow_2(boost::any_cast<double>( param_map[S_DELTA_TRAJ] ) )
            )
          )
        )
      )
      /
-     ( 3. * boost::any_cast<double>( nnt::s_RHO_0 ) );
+     ( 3. * boost::any_cast<double>( param_map[nnt::s_RHO_0] ) );
    
-  return
-    x[1] / ( 3. * boost::any_cast<double>( param_map[nnt::s_TAU] ) );
-
 }
 
 //##############################################################################
