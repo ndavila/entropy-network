@@ -137,7 +137,21 @@ initialize_state(
 {
 
   x[0] = 1.;
-  x[1] = x[0] / ( 3. * boost::any_cast<double>( param_map[nnt::s_TAU] ) );
+  x[1] = 
+     GSL_POW_4( x[0] ) *
+     (
+       (
+         boost::any_cast<double>( S_RHO_1 ) /
+         boost::any_cast<double>( nnt::s_TAU )
+       )
+       +
+       (
+         2. * boost::any_cast<double>( S_RHO_2 ) /
+         boost::any_cast<double>( S_DELTA_TRAJ )
+       )
+     )
+     /
+     ( 3. * boost::any_cast<double>( nnt::s_RHO_0 ) );
 
 }
 
